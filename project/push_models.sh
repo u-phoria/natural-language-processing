@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 EC2_PK="~/ur-mbp-aws.pem"
-EC2_IP="54.236.51.178"
+EC2_IP="34.201.164.105"
 REMOTE_PATH_ROOT="/home/ubuntu/natural-language-processing/project"
 
 for SRC_PATH in 'word_embeddings.tsv' 'tfidf_vectorizer.pkl' 'intent_recognizer.pkl' 'tag_classifier.pkl'; do
