@@ -6,7 +6,8 @@ import argparse
 import os
 import json
 
-from utils import DialogueManager, RESOURCE_PATH
+from utils import RESOURCE_PATH
+from dialogue_manager import DialogueManager
 from requests.compat import urljoin
 
 

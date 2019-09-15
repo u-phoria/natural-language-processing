@@ -20,14 +20,14 @@ class ThreadRanker(object):
             The search is performed across the threads with a given tag.
         """
         thread_ids, thread_embeddings = self.__load_embeddings_by_tag(tag_name)
+        print(thread_embeddings.shape)
 
         # HINT: you have already implemented a similar routine in the 3rd assignment.
         
         #### YOUR CODE HERE ####
         question_vec = question_to_vec(question, self.word_embeddings, self.embeddings_dim) #### YOUR CODE HERE ####
-
-        similarities = cosine_similarity(question_vec.reshape((1,-1)), thread_embeddings)
-        best_thread = np.argmax(similarities)
+        print(question_vec.shape)
+        best_thread = pairwise_distances_argmin(question_vec.reshape((1,-1)), thread_embeddings, metric='cosine')
         
         return thread_ids[best_thread]
 
