@@ -87,7 +87,8 @@ def main():
     # Do not forget to import all needed dependencies when you do so.
     
     #simple_manager = SimpleDialogueManager()
-    simple_manager = DialogueManager(RESOURCE_PATH)
+    dialogue_manager = DialogueManager(RESOURCE_PATH)
+    dialogue_manager.create_chitchat_bot()
     bot = BotHandler(token, simple_manager)
     
     ###############################################################

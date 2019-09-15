@@ -45,8 +45,6 @@ class DialogueManager(object):
         self.tag_classifier = unpickle_file(paths['TAG_CLASSIFIER'])
         self.thread_ranker = ThreadRanker(paths)
 
-        self.create_chitchat_bot()
-
     def create_chitchat_bot(self):
         """Initializes self.chitchat_bot with some conversational model."""
 
