@@ -89,7 +89,7 @@ def main():
     #simple_manager = SimpleDialogueManager()
     dialogue_manager = DialogueManager(RESOURCE_PATH)
     dialogue_manager.create_chitchat_bot()
-    bot = BotHandler(token, simple_manager)
+    bot = BotHandler(token, dialogue_manager)
     
     ###############################################################
 
