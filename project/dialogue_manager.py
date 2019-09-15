@@ -2,6 +2,7 @@ import os
 from sklearn.metrics.pairwise import pairwise_distances_argmin
 
 from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
 from utils import *
 
 
@@ -20,7 +21,6 @@ class ThreadRanker(object):
             The search is performed across the threads with a given tag.
         """
         thread_ids, thread_embeddings = self.__load_embeddings_by_tag(tag_name)
-        print(thread_embeddings.shape)
 
         # HINT: you have already implemented a similar routine in the 3rd assignment.
         
@@ -45,6 +45,8 @@ class DialogueManager(object):
         self.tag_classifier = unpickle_file(paths['TAG_CLASSIFIER'])
         self.thread_ranker = ThreadRanker(paths)
 
+        self.create_chitchat_bot()
+
     def create_chitchat_bot(self):
         """Initializes self.chitchat_bot with some conversational model."""
 
@@ -56,6 +58,10 @@ class DialogueManager(object):
         ########################
         #### YOUR CODE HERE ####
         ########################
+        chatbot = ChatBot('SO Sage')
+        trainer = ChatterBotCorpusTrainer(chatbot)
+        trainer.train("chatterbot.corpus.english")
+        self.chitchat_bot = chatbot
        
     def generate_answer(self, question):
         """Combines stackoverflow and chitchat parts using intent recognition."""
@@ -71,7 +77,7 @@ class DialogueManager(object):
         # Chit-chat part:   
         if intent == 'dialogue':
             # Pass question to chitchat_bot to generate a response.       
-            response = "chitchat response" #self.chitchat_bot.get_response(question) #### YOUR CODE HERE ####
+            response = self.chitchat_bot.get_response(question) #### YOUR CODE HERE ####
             return response
         
         # Goal-oriented part:
