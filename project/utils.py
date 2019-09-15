@@ -49,12 +49,13 @@ def load_embeddings(embeddings_path):
     ########################
     #### YOUR CODE HERE ####
     ########################
+    starspace_embeddings = {}
+    for line in open(embeddings_path, encoding='utf8'):
+      line = line.strip().split('\t')
+      word, *embeddings = line
+      starspace_embeddings[word] = list(map(float, embeddings))
 
-    # remove this when you're done
-    raise NotImplementedError(
-        "Open utils.py and fill with your code. In case of Google Colab, download"
-        "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
-        "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
+    return starspace_embeddings, len(line)-1
 
 
 def question_to_vec(question, embeddings, dim):
@@ -65,12 +66,12 @@ def question_to_vec(question, embeddings, dim):
     ########################
     #### YOUR CODE HERE ####
     ########################
-
-    # remove this when you're done
-    raise NotImplementedError(
-        "Open utils.py and fill with your code. In case of Google Colab, download"
-        "(https://github.com/hse-aml/natural-language-processing/blob/master/project/utils.py), "
-        "edit locally and upload using '> arrow on the left edge' -> Files -> UPLOAD")
+    q_words = re.split(r"(\s)+", question)
+    matched_embs = [np.array(embeddings[word]) for word in q_words if word in embeddings]
+    if not matched_embs:
+      return np.zeros((dim,))
+    
+    return np.mean(np.array(matched_embs), axis=0)
 
 
 def unpickle_file(filename):
